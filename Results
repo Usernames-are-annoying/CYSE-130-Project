@@ -1,1 +1,14 @@
-
+#Coding Results:
+# Part 1: 
+The coding in part 1 of the automation project is supposed to log all suspicious data from a system security log. It is supposed to log this data to a different 
+file. We ran the code and it succeeded in logging this suspicious data to another file. 
+# Part 2:
+The coding in part 2 was supposed to check to see the memory and cpu usage. It would print them out and store them in another file. If the cpu usage exceeded safe 
+values it would print out an alert message. We ran the code and it printed out the data and stored it in a file. The cpu usage never exceeded safe values though
+so we couldn't test to see if it would print out an alert.
+# Part 3:
+The coding in part 3 was supposed to do alerts like in part 2 but for both memory and cpu. It was supposed to constantly run and print out the memory and cpu 
+values while sending an email alert if they exceeded safe values. I had it run for a while before stopping it. It printed out the memory and cpu value every couple
+seconds. The values never exceeded safe standards so it never sent an email alert.
+# Part 4: 
+The coding in part 4 was just automating part 3. This is done by just letting the code in part 3 run on forever basically. 
