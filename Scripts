@@ -1,1 +1,20 @@
+# Coding 
+
+# Part 1: Log File Analysis
+
+Step 1: Select or Generate Logs 
+I chose the Linux_2k.log file from linux files on kaggle and downloaded it. 
+Step 2: Read and parse the log files
+with open('Linux_2k.log', 'r') as file:
+logs = file.readlines()
+
+Step 3: Filter for relevant Data
+suspicious_logs = [log for log in logs if 'failed' in log.lower() or 'unauthorized' in log.lower() or 'error’ in  log.lower() or 'failure' in log.lower() or 'Alert' in log.lower() or 'warning' in log.lower()]
+
+
+Step 4: Generate a Summary report
+with open('summary_report.txt', 'w') as f:
+    f.write(f"Total suspicious logs found: {len(suspicious_logs)}\n")
+    for log in suspicious_logs:
+        f.write(log + '\n')
 
