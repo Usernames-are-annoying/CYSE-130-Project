@@ -1,9 +1,9 @@
 # Coding 
 
 # Part 1: Log File Analysis
-
 Step 1: Select or Generate Logs 
 I chose the Linux_2k.log file from linux files on kaggle and downloaded it. 
+
 Step 2: Read and parse the log files
 with open('Linux_2k.log', 'r') as file:
 logs = file.readlines()
@@ -11,10 +11,103 @@ logs = file.readlines()
 Step 3: Filter for relevant Data
 suspicious_logs = [log for log in logs if 'failed' in log.lower() or 'unauthorized' in log.lower() or 'error’ in  log.lower() or 'failure' in log.lower() or 'Alert' in log.lower() or 'warning' in log.lower()]
 
-
 Step 4: Generate a Summary report
 with open('summary_report.txt', 'w') as f:
     f.write(f"Total suspicious logs found: {len(suspicious_logs)}\n")
     for log in suspicious_logs:
         f.write(log + '\n')
 
+# Part 2: System Performance Monitoring
+Step 1: Install the Psutil Library
+import psutil
+
+Step 2: Collect System Metrics
+cpu_usage = psutil.cpu_percent(interval=1)
+print(f"CPU Usage: {cpu_usage}%")
+
+memory_info = psutil.virtual_memory()
+print(f"Memory Usage: {memory_info.percent}%")
+
+Step 3: Log the Performance Data
+with open('performance_log.txt', 'a') as f:
+    f.write(f"CPU: {cpu_usage}%, Memory: {memory_info.percent}%\n")
+
+Step 4: Generate Alerts for High Usage
+if cpu_usage > 90:
+    print("ALERT: High CPU usage detected!")
+
+# Part 3: Alert Generation
+import smtplib 
+from email.message import EmailMessage 
+
+def alert_generation():
+    while(True):
+        cpu_usage = psutil.cpu_percent(interval=1)
+        print(f"Current CPU Usage: {cpu_usage}%")
+
+        memory_info = psutil.virtual_memory()
+        print(f"Memory usage: {memory_info.percent}%\n")
+
+        with open("performance_data.txt", "a") as file: 
+            file.write(f"Current CPU: {cpu_usage}%, Memory: {memory_info.percent}%\n")
+
+        if(cpu_usage > 90): 
+            alert_message = f"ALERT High CPU Usage: {cpu_usage}%" 
+            send_alert("High CPU Usage Alert", alert_message)
+
+            print(f"ALERT: High CPU Usage Detected: {cpu_usage}%\n") 
+
+            with open("performance_alert.txt", "a") as f: 
+                f.write(f"{alert_message}\n")
+
+        if(memory_info.percent > 90):
+            alert_message = f"ALERT High Memory Usage: {memory_info.percent}%"                   
+            end_alert("High Memory Usage Alert", alert_message)
+                      
+            print(f"ALERT: High memory usage detected: {memory_info.percent}%\n")
+            with open("performance_alert.txt", "a") as f2: 
+            f2.write(f"{alert_message}\n")
+
+def send_alert(subject, body):
+    msg = EmailMessage() 
+    msg.set_content(body) 
+    msg['Subject'] = subject 
+    msg['From'] = 'cyse130email@gmail.com' 
+    msg['To'] = 'ibhamidi6@gmail.com' 
+
+    with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp: 
+        smtp.login('cyse130email@gmail.com', '87654321?') 
+        smtp.send_message(msg) 
+
+alert_generation() 
+
+# Part 4: Automating Routine Security Checks
+def alert_generation():
+    while(True):
+        cpu_usage = psutil.cpu_percent(interval=1)
+        print(f"Current CPU Usage: {cpu_usage}%")
+
+        memory_info = psutil.virtual_memory()
+        print(f"Memory usage: {memory_info.percent}%\n")
+
+        with open("performance_data.txt", "a") as file: 
+            file.write(f"Current CPU: {cpu_usage}%, Memory: {memory_info.percent}%\n")
+
+        if(cpu_usage > 90): 
+            alert_message = f"ALERT High CPU Usage: {cpu_usage}%" 
+            send_alert("High CPU Usage Alert", alert_message)
+
+            print(f"ALERT: High CPU Usage Detected: {cpu_usage}%\n") 
+
+            with open("performance_alert.txt", "a") as f: 
+                f.write(f"{alert_message}\n")
+
+        if(memory_info.percent > 90):
+            alert_message = f"ALERT High Memory Usage: {memory_info.percent}%"                   
+            end_alert("High Memory Usage Alert", alert_message)
+                      
+            print(f"ALERT: High memory usage detected: {memory_info.percent}%\n")
+            with open("performance_alert.txt", "a") as f2: 
+            f2.write(f"{alert_message}\n")
+
+alert_generation()
